@@ -10,6 +10,33 @@ var catalogRouter = require('./routes/catalog');  //Import routes for "catalog" 
 
 var app = express();
 
+const catalogRouter = require("./routes/catalog"); // Import routes for "catalog" area of site
+const compression = require("compression");
+
+// Create the Express application object
+const app = express();
+
+// …
+
+app.use(compression()); // Compress all routes
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
+
+// …
+
+const compression = require("compression");
+const helmet = require("helmet");
+
+// Create the Express application object
+const app = express();
+
+app.use(helmet());
+// …
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
